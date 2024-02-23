@@ -25,7 +25,7 @@ type CurrencyConstants struct {
 	SigDigs         int
 }
 
-func GetConversionConstants(currencyCode string) (CurrencyConstants, error) {
+func getConversionConstants(currencyCode string) (CurrencyConstants, error) {
 	switch currencyCode {
 	case "USDC":
 		return CurrencyConstants{SubunitsPerUnit: USDCSubunitsPerUnit, SigDigs: USDCSubunitsSigDigs}, nil
@@ -52,11 +52,11 @@ func GetConversionConstants(currencyCode string) (CurrencyConstants, error) {
  * @returns Number of @param payoutCurrency subunits that can be bought with @param payinAmountSubunits amount of @param payinCurency.
  */
 func CalculatePayoutAmountSubunitsWithPayinCurrencySpotPrice(payinCurrency, payoutCurrency string, payinAmountSubunits int64, payinCurrencyUnitsPerPayoutCurrencyUnit string) (*big.Int, error) {
-	payinConstants, err := GetConversionConstants(payinCurrency)
+	payinConstants, err := getConversionConstants(payinCurrency)
 	if err != nil {
 		return nil, err
 	}
-	payoutConstants, err := GetConversionConstants(payoutCurrency)
+	payoutConstants, err := getConversionConstants(payoutCurrency)
 	if err != nil {
 		return nil, err
 	}
@@ -84,11 +84,11 @@ func CalculatePayoutAmountSubunitsWithPayinCurrencySpotPrice(payinCurrency, payo
  * @returns Number of @param payoutCurrency subunits that can be bought with @param payinAmountSubunits amount of @param payinCurency.
  */
 func CalculatePayoutAmountSubunitsWithPayoutCurrencySpotPrice(payinCurrency, payoutCurrency string, payinAmountSubunits int64, payoutCurrencyUnitsPerPayinCurrencyUnit string) (*big.Int, error) {
-	payinConstants, err := GetConversionConstants(payinCurrency)
+	payinConstants, err := getConversionConstants(payinCurrency)
 	if err != nil {
 		return nil, err
 	}
-	payoutConstants, err := GetConversionConstants(payoutCurrency)
+	payoutConstants, err := getConversionConstants(payoutCurrency)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func CalculatePayoutAmountSubunitsWithPayoutCurrencySpotPrice(payinCurrency, pay
  * @returns a whole unit amount of @param currencyCode with extra subunits after a decimal point
  */
 func ConvertSubunitsToUnits(amountSubunits int64, currencyCode string) (string, error) {
-	constants, err := GetConversionConstants(currencyCode)
+	constants, err := getConversionConstants(currencyCode)
 	if err != nil {
 		return "", err
 	}
@@ -141,7 +141,7 @@ func ConvertSubunitsToUnits(amountSubunits int64, currencyCode string) (string, 
  * @returns subunits string of @param currencyCode that @param amountUnits contains
  */
 func ConvertUnitsToSubunits(amountUnits string, currencyCode string) (string, error) {
-	constants, err := GetConversionConstants(currencyCode)
+	constants, err := getConversionConstants(currencyCode)
 	if err != nil {
 		return "", err
 	}

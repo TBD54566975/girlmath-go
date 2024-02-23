@@ -4,7 +4,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/tbd54566975/girlmath"
+	"github.com/tbd54566975/girlmath-go"
 )
 
 func TestCalculatePayoutAmountSubunitsWithPayoutCurrencySpotPrice(t *testing.T) {
